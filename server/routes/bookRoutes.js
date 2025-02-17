@@ -72,6 +72,8 @@ router.get("/search", async (req, res) => {
 // return a book specified by the id.
 router.get("/:id",async (req,res) => {
     const book_id = req.params.id;
+    console.log(book_id);
+    
     const response = await Book.findOne({ _id: book_id });
     if(!response)
         {

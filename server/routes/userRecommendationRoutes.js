@@ -55,7 +55,10 @@ router.get("/recommendations/:user_id", async (req, res) => {
 
         res.status(200).json({
             message: "Recommendations fetched successfully",
-            recommendations: recommendations.map((rec) => ({ booK: rec.book_id}))
+            recommendations: recommendations.map((rec) => ({ 
+                book: rec.book_id,
+                recommended_by: rec.recommended_by,
+            }))
         })
     } catch (error) {
         console.error("Error fetching recommendations:", error);

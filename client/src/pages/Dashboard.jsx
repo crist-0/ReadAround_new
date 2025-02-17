@@ -207,6 +207,8 @@ const Dashboard = () => {
   const [recommendations, setRecommendations] = useState([]);
   const [recommendedBooks, setRecommendedBooks] = useState([]);
 
+  const [followedRecommendations, setFollowedRecommendations] = useState([]);
+
   const log_id = localStorage.getItem("user_id");
 
   useEffect(() => {
@@ -229,6 +231,7 @@ const Dashboard = () => {
     if (dashboardData?.saved_books) {
       const fetchSavedBooks = async () => {
         try {
+          console.log(dashboardData.saved_books);
           const bookPromises = dashboardData.saved_books.map((bookId) =>
             axios.get(`http://127.0.0.1:7000/api/books/${bookId}`)
           );
@@ -434,6 +437,43 @@ const handleUsernameClick = async (userId) => {
 };
 
 
+useEffect(() => {
+  const fetchFollowedRecommendations = async () => {
+    try {
+      const response = await axios.get(`http://127.0.0.1:7000/api/recommend/recommendations/${user_id}`);
+      const recommendationsData = response.data.recommendations;
+      console.log(recommendationsData);
+
+      setFollowedRecommendations(recommendationsData);
+      // const bookRequests = recommendationsData.map((rec) =>
+      //   axios.get(`http://127.0.0.1:7000/api/books/${rec.book}`)
+      // );
+      // const userRequests = recommendationsData.map((rec) =>
+      //   axios.get(`http://127.0.0.1:7000/api/user/details?id=${rec.recommended_by}`)
+      // );
+
+      // const [bookResponses, userResponses] = await Promise.all([
+      //   Promise.all(bookRequests),
+      //   Promise.all(userRequests),
+      // ]);
+
+      // const books = bookResponses.map((res) => res.data.data);
+      // const users = userResponses.map((res) => res.data.user);
+
+      // const finalRecommendations = recommendationsData.map((rec, index) => ({
+      //   book: books[index],
+      //   recommendedBy: users[index].username,
+      // }));
+
+      // setFollowedRecommendations(finalRecommendations);
+    } catch (error) {
+      console.error("Failed to fetch followed recommendations.", error);
+    }
+  };
+
+  fetchFollowedRecommendations();
+}, [user_id]);
+
   if (!dashboardData) {
     return <div className="text-center text-gray-500 mt-10">Loading user data...</div>;
   }
@@ -515,6 +555,24 @@ const handleUsernameClick = async (userId) => {
           )}
         </div>
       </div>
+
+              {/* Followed Recommendations Section */}
+              <section className="mt-8">
+          <h2 className="text-2xl font-semibold mb-4 text-white">Books Recommended by Followed Users</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-3">
+            {followedRecommendations.length ? (
+              followedRecommendations.map((data) => (
+                <div key={data.book.id} className="bg-gray-800 p-4 rounded-lg shadow-md">
+                  {console.log(data)}
+                  <BookCard book={data.book} />
+                  <p className="text-gray-400 mt-2 text-sm">Recommended by: {data.recommended_by.username}</p>
+                </div>
+              ))
+            ) : (
+              <p className="text-gray-400">No recommendations from followed users yet.</p>
+            )}
+          </div>
+        </section>
 
      {/* Recommendations Section */}
      <section className="mt-8">
