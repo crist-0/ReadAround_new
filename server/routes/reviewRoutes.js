@@ -59,7 +59,9 @@ router.get("/get",async (req, res) => {
                     book_id: data.book_id,
                     rating: data.rating,
                     comment: data.comment,
-                    date: data.updated_at
+                    date: data.updated_at,
+                    upvotes: data.upvotes.length || 0,
+                    downvotes: data.downvotes.length || 0
                 }) )
              })
         }
@@ -84,7 +86,9 @@ router.get("/get",async (req, res) => {
                     book_id: data.book_id,
                     rating: data.rating,
                     comment: data.comment,
-                    date: data.updated_at
+                    date: data.updated_at,
+                    upvotes: data.upvotes.length || 0,
+                    downvotes: data.downvotes.length || 0
                 }) )
              })
         }
@@ -282,5 +286,31 @@ router.delete("/:commentId/comment",async (req, res) => {
         });
     }
 
-})
+});
+
+
+// Backend route to upvote a review
+router.post("/:id/upvote", async (req, res) => {
+    try {
+        const review = await Review.findById(req.params.id);
+        if (!review) return res.status(404).json({ message: "Review not found" });
+        await review.upvote(req.body.user_id);
+        res.json({ message: "Upvoted successfully", review });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+// Backend route to downvote a review
+router.post("/:id/downvote", async (req, res) => {
+    try {
+        const review = await Review.findById(req.params.id);
+        if (!review) return res.status(404).json({ message: "Review not found" });
+        await review.downvote(req.body.user_id);
+        res.json({ message: "Downvoted successfully", review });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 module.exports = router;

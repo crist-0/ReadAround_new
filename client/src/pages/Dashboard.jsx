@@ -189,6 +189,8 @@ import { useNavigate } from "react-router-dom";
 import BookCard from "../components/BookCard";
 import ReviewCard from "../components/ReviewCard";
 import axios from "axios";
+import { X } from "lucide-react";
+
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -474,6 +476,16 @@ useEffect(() => {
   fetchFollowedRecommendations();
 }, [user_id]);
 
+  //clear the recommendation
+
+  const handleDelete = async (recommendationId) => {
+    try {      
+      await axios.delete(`http://127.0.0.1:7000/api/recommend/recommendations/${recommendationId}`);
+      setFollowedRecommendations((prev) => prev.filter((rec) => rec.id !== recommendationId));
+    } catch (error) {
+      console.error("Error deleting recommendation:", error);
+    }
+  };
   if (!dashboardData) {
     return <div className="text-center text-gray-500 mt-10">Loading user data...</div>;
   }
@@ -556,23 +568,27 @@ useEffect(() => {
         </div>
       </div>
 
-              {/* Followed Recommendations Section */}
-              <section className="mt-8">
-          <h2 className="text-2xl font-semibold mb-4 text-white">Books Recommended by Followed Users</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-3">
-            {followedRecommendations.length ? (
-              followedRecommendations.map((data) => (
-                <div key={data.book.id} className="bg-gray-800 p-4 rounded-lg shadow-md">
-                  {console.log(data)}
-                  <BookCard book={data.book} />
-                  <p className="text-gray-400 mt-2 text-sm">Recommended by: {data.recommended_by.username}</p>
-                </div>
-              ))
-            ) : (
-              <p className="text-gray-400">No recommendations from followed users yet.</p>
-            )}
-          </div>
-        </section>
+      <section className="mt-8">
+      <h2 className="text-2xl font-semibold mb-4 text-white">Books Recommended by Followed Users</h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-3">
+        {followedRecommendations.length ? (
+          followedRecommendations.map((data) => (
+            <div key={data.book.id} className="bg-gray-800 p-4 rounded-lg shadow-md relative">
+              <button 
+                className="absolute top-2 right-2 text-red-400 hover:text-red-500"
+                onClick={() => handleDelete(data.id)}
+              >
+                <X size={20} />
+              </button>
+              <BookCard book={data.book} />
+              <p className="text-gray-400 mt-2 text-sm">Recommended by: {data.recommended_by.username}</p>
+            </div>
+          ))
+        ) : (
+          <p className="text-gray-400">No recommendations from followed users yet.</p>
+        )}
+      </div>
+    </section>
 
      {/* Recommendations Section */}
      <section className="mt-8">
@@ -586,7 +602,7 @@ useEffect(() => {
                 <p className="text-gray-400">No recommendations available.</p>
               )}
             </div>
-          </section>
+      </section>
 
           <div className="mb-6">
   <h2 className="text-xl font-semibold text-white mb-4">Your Reviews</h2>

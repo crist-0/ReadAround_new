@@ -56,6 +56,7 @@ router.get("/recommendations/:user_id", async (req, res) => {
         res.status(200).json({
             message: "Recommendations fetched successfully",
             recommendations: recommendations.map((rec) => ({ 
+                id: rec._id,
                 book: rec.book_id,
                 recommended_by: rec.recommended_by,
             }))
@@ -66,5 +67,26 @@ router.get("/recommendations/:user_id", async (req, res) => {
     }
 });
 
+
+router.delete("/recommendations/:recommendation_id", async (req, res) => {
+    const  recommendation_id  = req.params.recommendation_id;
+
+    if (!recommendation_id) {
+        return res.status(400).json({ message: "Recommendation ID is required" });
+    }
+
+    try {
+        const recommendation = await UserRecommendation.findByIdAndDelete(recommendation_id);
+
+        if (!recommendation) {
+            return res.status(404).json({ message: "Recommendation not found" });
+        }
+
+        res.status(200).json({ message: "Recommendation deleted successfully" });
+    } catch (error) {
+        console.error("Error deleting recommendation:", error);
+        res.status(500).json({ message: "Server error", error });
+    }
+});
 module.exports = router;
 
