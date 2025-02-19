@@ -36,6 +36,8 @@ const Login = () => {
       } else if (response.data.user.role === "doctor") {
         navigate("/doctor");
       } else {
+        console.log(response.data.user.id+"hello world");
+        
         navigate("/dashboard");
       }
     } catch (err) {

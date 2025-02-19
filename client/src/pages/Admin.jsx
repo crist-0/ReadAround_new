@@ -82,6 +82,14 @@ const AdminPanel = () => {
     }
   };
 
+  const handleAddBook = () => {
+    navigate("/addbook");
+  };
+
+  const handleUpdateBook = () => {
+    navigate("/update-book");
+  };
+
   return (
     <div className="bg-gray-900 min-h-screen text-white p-6 lg:p-16 md:p-14">
       <h2 className="text-3xl font-bold text-center mb-8">Admin Panel</h2>
@@ -89,6 +97,26 @@ const AdminPanel = () => {
       {success && <div className="bg-green-600 text-white p-4 mb-4 rounded-lg">{success}</div>}
 
       <Analytics organisers={organisers} />
+        
+      {/* New Book Operations Section */}
+        <div className="mt-10 bg-gray-800 p-6 lg:p-8 md:p-7 rounded-lg shadow-lg">
+          <h3 className="text-2xl font-bold mb-6">Book Operations</h3>
+          <div className="flex space-x-4"> {/* Flexbox container for buttons */}
+            <button
+              className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg mb-4 w-full sm:w-auto"
+              onClick={handleAddBook}
+            >
+              Add New Book
+            </button>
+            <button
+              className="bg-yellow-600 hover:bg-yellow-700 text-white py-2 px-4 rounded-lg mb-4 w-full sm:w-auto"
+              onClick={handleUpdateBook}
+            >
+              Update or Delete Book
+            </button>
+          </div>
+        </div>
+
 
       <div className="bg-gray-800 p-6 lg:p-8 md:p-7 rounded-lg shadow-lg">
         <table className="table-auto w-full text-left">

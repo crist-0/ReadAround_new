@@ -142,7 +142,8 @@ router.get("/user/details",async (req, res) => {
         username: user.username,
         email: user.email,
         phone: user.phone,
-        saved_books: user.saved_books
+        saved_books: user.saved_books,
+        role: user.role
       },
     });
   } catch (error) {
