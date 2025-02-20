@@ -136,8 +136,7 @@ const BookCard = ({ book }) => {
               style={{ width: "100%", maxWidth: "240px", aspectRatio: "2/3" }}
             />
           </div>
-
-
+  
           {/* Details Section */}
           <div className="p-6 flex-1">
             <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">
@@ -152,7 +151,7 @@ const BookCard = ({ book }) => {
             <p className="text-gray-600 dark:text-gray-400 mb-4">
               <span className="font-semibold">Author:</span> {book.author}
             </p>
-
+  
             {/* Rating Section */}
             <div className="flex items-center mb-4">
               <span className="text-gray-600 dark:text-gray-400 mr-2 font-semibold">
@@ -172,42 +171,49 @@ const BookCard = ({ book }) => {
                 ))}
               </div>
             </div>
-
-            {/* Buttons Section */}
-            <div className="flex space-x-4 mt-6">
-              <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
-              onClick={handleRead}>
-                Read Reviews
-              </button>
-              <button
-                className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors"
-                onClick={handleWriteNavigation}
-              >
-                Write Reviews
-              </button>
-            </div>
-
-            {/* Add to Reading List Button */}
-            <div className="mt-6">
-              <button
-                className="w-full bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors"
-                onClick={handleAddToReadingList}
-              >
-                Add to Reading List
-              </button>
-            </div>
-           
-{/* Generate Review Button */}
-<div className="mt-6">
-              <button
-                className="w-full bg-teal-600 text-white px-4 py-2 rounded-lg hover:bg-teal-700"
-                onClick={handleGenerateReview}
-                disabled={isGenerating}
-              >
-                {isGenerating ? "Generating..." : "Generate Review"}
-              </button>
-            </div>
-
+  
+            {/* Check for Admin Role */}
+            {localStorage.getItem("role") !== "admin" && (
+              <>
+                {/* Buttons Section */}
+                <div className="flex space-x-4 mt-6">
+                  <button
+                    className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                    onClick={handleRead}
+                  >
+                    Read Reviews
+                  </button>
+                  <button
+                    className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors"
+                    onClick={handleWriteNavigation}
+                  >
+                    Write Reviews
+                  </button>
+                </div>
+  
+                {/* Add to Reading List Button */}
+                <div className="mt-6">
+                  <button
+                    className="w-full bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors"
+                    onClick={handleAddToReadingList}
+                  >
+                    Add to Reading List
+                  </button>
+                </div>
+  
+                {/* Generate Review Button */}
+                <div className="mt-6">
+                  <button
+                    className="w-full bg-teal-600 text-white px-4 py-2 rounded-lg hover:bg-teal-700"
+                    onClick={handleGenerateReview}
+                    disabled={isGenerating}
+                  >
+                    {isGenerating ? "Generating..." : "Generate Review"}
+                  </button>
+                </div>
+              </>
+            )}
+  
             {/* Generated Review with Typing Effect */}
             {generatedReview && (
               <div className="mt-6 p-4 bg-gray-200 dark:bg-gray-700 rounded-lg">
@@ -218,11 +224,10 @@ const BookCard = ({ book }) => {
               </div>
             )}
           </div>
-
         </div>
       </div>
     </div>
-  );
+  );  
 };
 
 export default BookCard;

@@ -11,6 +11,7 @@ const Navbar = () => {
     // Remove token from localStorage
     localStorage.removeItem('token');
     localStorage.removeItem('user_id');
+    localStorage.removeItem('role');
     // Navigate to the home page or login page
     navigate('/login');
   };

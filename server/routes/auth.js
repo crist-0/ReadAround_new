@@ -154,6 +154,32 @@ router.get("/user/details",async (req, res) => {
 })
 
 
+// update the user data
+router.put("/user/update", async (req, res) => {
+  try {
+    const { id, username, email, phone } = req.body;
+
+    if (!id || !username || !email || !phone) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
+
+    const response = await User.findOneAndUpdate(
+      { _id: id }, // Corrected query key
+      { username, email, phone },
+      { new: true } // Returns updated document
+    );
+
+    if (response) {
+      return res.status(200).json({ message: "User updated successfully", user: response });
+    } else {
+      return res.status(400).json({ message: "Failed to update user" });
+    }
+  } catch (error) {
+    console.error("Update Error:", error);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
 // reset the users password
 router.post("/reset_password",async (req, res) => {
   console.log(req.body);

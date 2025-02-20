@@ -32,12 +32,13 @@ const Login = () => {
 
       // Redirect or take action after login
       if (response.data.user.role === "admin") {
+        localStorage.setItem("role", response.data.user.role);
         navigate("/admin");
       } else if (response.data.user.role === "doctor") {
         navigate("/doctor");
       } else {
         console.log(response.data.user.id+"hello world");
-        
+        localStorage.setItem("role", response.data.user.role);
         navigate("/dashboard");
       }
     } catch (err) {

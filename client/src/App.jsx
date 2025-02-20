@@ -26,6 +26,7 @@ import ProtectedRoute from './pages/ProtectedRoute';
 
 import { AuthProvider } from "./pages/AuthContext";
 import { BlinkBlur } from 'react-loading-indicators';
+import EditProfile from './pages/EditProfile';
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -48,12 +49,11 @@ const App = () => {
   return (
     
     <Router>
-      <AuthProvider>
       <div className="bg-custom h-screen">
         {/* <Navbar /> */}
         <Routes>
+
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/register-doctor" element={<DoctorRegisterPage />} />
           <Route path="/unauthorized" element={<Unauthorized />} />
@@ -61,12 +61,12 @@ const App = () => {
           <Route path="/doctor" element={<DoctorPanel />} />
 
           {/* Admin Route - Restricted to Admins Only */}
-          <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
+          {/* <Route element={<ProtectedRoute allowedRoles={["admin"]} />}> */}
             <Route path="/admin" element={<AdminPanel/>} />
             <Route path="/addbook" element={ <BookAdd />} />
             <Route path='/update-book' element={ <BookUpdate />} />
-          </Route>
-          <Route element={<ProtectedRoute allowedRoles={["user"]} />}>
+          {/* </Route> */}
+            <Route path="/login" element={<Login />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/rec" element={<Recommendations />} />
@@ -78,11 +78,11 @@ const App = () => {
             <Route path="/view-user" element={ <UserProfilePage /> } />
             <Route path="/feed" element={<FeedPage />} />
             <Route path='/recommend_to_user' element={<UserRecommendBookPage />} />
-          </Route>
+            <Route path='/edit-profile' element={<EditProfile />} />
+          {/* </Route> */}
         </Routes>
       </div>
 
-    </AuthProvider>
     </Router>
   );
 };

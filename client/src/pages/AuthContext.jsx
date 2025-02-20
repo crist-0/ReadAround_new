@@ -19,6 +19,8 @@ export const AuthProvider = ({ children }) => {
 
       try {
         const response = await axiosInstance.get(`http://127.0.0.1:7000/api/user/details?id=${userId}`);
+        console.log(response.data);
+        
         setUser(response.data.user);
       } catch (error) {
         console.error("Error fetching user:", error);
