@@ -25,6 +25,8 @@ const BookCard = ({ book }) => {
       try{
         const response = await axios.get("https://bookcover.longitood.com/bookcover"+formattedQuery);
         setBookCover(response.data.url);
+        console.log(bookCover);
+        
       }
       catch(error)
       {
@@ -208,7 +210,7 @@ const BookCard = ({ book }) => {
                     onClick={handleGenerateReview}
                     disabled={isGenerating}
                   >
-                    {isGenerating ? "Generating..." : "Generate Review"}
+                    {isGenerating ? "Generating..." : "Generate AI Review"}
                   </button>
                 </div>
               </>
@@ -217,7 +219,7 @@ const BookCard = ({ book }) => {
             {/* Generated Review with Typing Effect */}
             {generatedReview && (
               <div className="mt-6 p-4 bg-gray-200 dark:bg-gray-700 rounded-lg">
-                <h3 className="text-lg font-bold mb-2">Generated Review:</h3>
+                <h3 className="text-lg font-bold mb-2">AI Generated Review:</h3>
                 <p className="text-gray-700 dark:text-gray-300 whitespace-pre-line">
                   {generatedReview}
                 </p>

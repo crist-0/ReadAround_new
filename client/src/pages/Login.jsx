@@ -39,6 +39,8 @@ const Login = () => {
       } else {
         console.log(response.data.user.id+"hello world");
         localStorage.setItem("role", response.data.user.role);
+        const isVerified = response.data.user.isVerified;
+        localStorage.setItem("isVerified", isVerified.toString());
         navigate("/dashboard");
       }
     } catch (err) {

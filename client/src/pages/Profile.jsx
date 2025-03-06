@@ -267,6 +267,7 @@ import { useNavigate } from "react-router-dom";
 import jwt from "jsonwebtoken";
 import axios from "axios";
 import UserCard from "../components/UserCard";
+import Navbar from "../components/Navbar";
 
 const UserProfile = () => {
   const [userData, setUserData] = useState({
@@ -320,6 +321,7 @@ const UserProfile = () => {
   return (
     <section className="bg-gray-900 min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-4xl rounded-lg shadow-lg border bg-gray-800 border-gray-700 overflow-hidden">
+      <Navbar></Navbar>
         <div className="p-6 sm:p-8">
           {loading ? (
             // Loader while data is being fetched

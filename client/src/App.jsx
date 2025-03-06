@@ -27,6 +27,9 @@ import ProtectedRoute from './pages/ProtectedRoute';
 import { AuthProvider } from "./pages/AuthContext";
 import { BlinkBlur } from 'react-loading-indicators';
 import EditProfile from './pages/EditProfile';
+import AboutUs from './pages/AboutUs';
+import ContactUs from './pages/ContactUs';
+import Legal from './pages/Legal';
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -79,11 +82,53 @@ const App = () => {
             <Route path="/feed" element={<FeedPage />} />
             <Route path='/recommend_to_user' element={<UserRecommendBookPage />} />
             <Route path='/edit-profile' element={<EditProfile />} />
+            <Route path='/aboutus' element={<AboutUs />} />
+            <Route path='/contactus' element={<ContactUs />} />
+            <Route path='/legal' element={<Legal />} />
           {/* </Route> */}
         </Routes>
       </div>
 
-    </Router>
+     </Router>
+     
+  //   <Router>
+  //   <div className="bg-custom h-screen">
+  //     <Routes>
+  //       {/* Public Routes */}
+  //       <Route path="/" element={<Home />} />
+  //       <Route path="/register" element={<Register />} />
+  //       <Route path="/register-doctor" element={<DoctorRegisterPage />} />
+  //       <Route path="/unauthorized" element={<Unauthorized />} />
+  //       <Route path="/login" element={<Login />} />
+
+  //       {/* Admin-Only Routes */}
+  //       <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
+  //         <Route path="/admin" element={<AdminPanel />} />
+  //         <Route path="/addbook" element={<BookAdd />} />
+  //         <Route path="/update-book" element={<BookUpdate />} />
+  //       </Route>
+
+  //       {/* Normal User-Only Routes */}
+  //       <Route element={<ProtectedRoute allowedRoles={["user"]} />}>
+  //         <Route path="/dashboard" element={<Dashboard />} />
+  //         <Route path="/profile" element={<Profile />} />
+  //         <Route path="/rec" element={<Recommendations />} />
+  //         <Route path="/reset" element={<ResetPassword />} />
+  //         <Route path="/bookpage" element={<BookPage />} />
+  //         <Route path="/explore" element={<ExploreBooks />} />
+  //         <Route path="/add-review" element={<BookReviewPage />} />
+  //         <Route path="/view-reviews" element={<ReviewDisplay />} />
+  //         <Route path="/view-user" element={<UserProfilePage />} />
+  //         <Route path="/feed" element={<FeedPage />} />
+  //         <Route path="/recommend_to_user" element={<UserRecommendBookPage />} />
+  //         <Route path="/edit-profile" element={<EditProfile />} />
+  //       </Route>
+
+  //       {/* Doctor Route */}
+  //       <Route path="/doctor" element={<DoctorPanel />} />
+  //     </Routes>
+  //   </div>
+  // </Router>
   );
 };
 

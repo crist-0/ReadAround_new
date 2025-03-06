@@ -12,7 +12,7 @@ router.get('/organisers', authMiddleware,  async (req, res) => {
     try {
         // Fetch all users who are not admins
         // const organisers = await User.find({ isAdmin: false });
-        const organisers = await User.find();
+        const organisers = await User.find({role: "user"});
 
         res.json(organisers);
     } catch (err) {

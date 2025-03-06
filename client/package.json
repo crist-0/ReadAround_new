@@ -12,12 +12,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@shadcn/ui": "^0.0.4",
     "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
     "buffer": "^6.0.3",
     "cohere-ai": "^7.15.4",
     "date-fn": "^0.0.2",
     "date-fns": "^4.1.0",
+    "framer-motion": "^12.4.7",
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.473.0",
     "openai": "^4.83.0",

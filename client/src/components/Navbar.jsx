@@ -6,12 +6,14 @@ const Navbar = () => {
 
   // Check if token exists in localStorage
   const isLoggedIn = !!localStorage.getItem('token');
+  const rolr = localStorage.getItem("role");
 
   const handleLogout = () => {
     // Remove token from localStorage
     localStorage.removeItem('token');
     localStorage.removeItem('user_id');
     localStorage.removeItem('role');
+    localStorage.removeItem('isVerified');
     // Navigate to the home page or login page
     navigate('/login');
   };

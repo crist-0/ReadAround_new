@@ -84,7 +84,7 @@ const Home = () => {
   {/* <Header></Header> */}
   <Navbar />
   <Hero></Hero>
-  <Features />
+  {/* <Features /> */}
   {/* <Carousel books={books}/> */}
   <Footer />
   {/* <Paragraph
